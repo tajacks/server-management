@@ -113,7 +113,7 @@ create_admin_user() {
         log_info "Admin user '$ADMIN_USER' already exists"
     else
         log_info "Creating admin user: $ADMIN_USER"
-        useradd -m -s /usr/bin/fish -c "Tom Jack" "$ADMIN_USER"
+        useradd -m -s /usr/bin/fish -c "$ADMIN_USER_COMMENT" "$ADMIN_USER"
         usermod -aG sudo "$ADMIN_USER"
     fi
 
