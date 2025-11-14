@@ -168,29 +168,6 @@ create_app_user() {
         useradd -m -s /usr/bin/fish -c "Application User" "$APP_USER"
     fi
 
-    # Setup limited sudo for app user
-    local -r sudoers_file="/etc/sudoers.d/$APP_USER"
-    if [[ ! -f "$sudoers_file" ]] || ! grep -q "caddy" "$sudoers_file"; then
-        log_info "Configuring limited sudo for $APP_USER"
-        cat > "$sudoers_file" << 'SUDOERS'
-# Limited sudo access for app user
-app ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart caddy
-app ALL=(ALL) NOPASSWD: /usr/bin/systemctl reload caddy
-app ALL=(ALL) NOPASSWD: /usr/bin/systemctl status caddy
-app ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart docker
-app ALL=(ALL) NOPASSWD: /usr/bin/systemctl status docker
-app ALL=(ALL) NOPASSWD: /usr/bin/docker compose *
-app ALL=(ALL) NOPASSWD: /usr/bin/docker ps *
-app ALL=(ALL) NOPASSWD: /usr/bin/docker logs *
-app ALL=(ALL) NOPASSWD: /usr/bin/chown -R app\:app /var/www/html/*
-SUDOERS
-        chmod 0440 "$sudoers_file"
-    fi
-
-    # Create app user directories
-    ensure_directory "/var/www/html" "$APP_USER:$APP_USER" 755
-    ensure_directory "/etc/caddy" "$APP_USER:$APP_USER" 755
-
     log_info "App user '$APP_USER' configured"
 }
 
