@@ -381,18 +381,11 @@ configure_automatic_updates() {
     local -r unattended_config="/etc/apt/apt.conf.d/50unattended-upgrades"
     local -r auto_upgrades="/etc/apt/apt.conf.d/20auto-upgrades"
 
-    if [[ -f "$auto_upgrades" ]] && grep -q "APT::Periodic::Unattended-Upgrade \"1\"" "$auto_upgrades"; then
-        log_info "Automatic updates already configured"
-        return 0
-    fi
-
     log_info "Configuring automatic security updates"
 
     local -r unattended_content='Unattended-Upgrade::Allowed-Origins {
     "${distro_id}:${distro_codename}";
     "${distro_id}:${distro_codename}-security";
-    "${distro_id}ESMApps:${distro_codename}-apps-security";
-    "${distro_id}ESM:${distro_codename}-infra-security";
 };
 Unattended-Upgrade::AutoFixInterruptedDpkg "true";
 Unattended-Upgrade::MinimalSteps "true";
