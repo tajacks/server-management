@@ -24,9 +24,28 @@ export default function(eleventyConfig) {
       });
   });
 
-  // Filter to get only chapter index pages (no sectionNumber)
-  eleventyConfig.addFilter("chapterIndexesOnly", function(chapters) {
-    return chapters.filter(page => !page.data.sectionNumber);
+  // Filter to get unique chapters from sections
+  eleventyConfig.addFilter("getUniqueChapters", function(chapters) {
+    const chapterMap = new Map();
+
+    chapters.forEach(page => {
+      const chapterNum = page.data.chapterNumber;
+      if (chapterNum && page.data.sectionNumber && !chapterMap.has(chapterNum)) {
+        // Extract directory name and clean it up
+        const dirName = page.filePathStem.split('/')[2] || '';
+        // Remove chapter number prefix (e.g., "01-introduction" -> "introduction")
+        const cleanName = dirName.replace(/^\d+-/, '');
+        // Capitalize first letter
+        const title = cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
+
+        chapterMap.set(chapterNum, {
+          chapterNumber: chapterNum,
+          title: title || `Chapter ${chapterNum}`
+        });
+      }
+    });
+
+    return Array.from(chapterMap.values()).sort((a, b) => a.chapterNumber - b.chapterNumber);
   });
 
   // Filter to get sections for a specific chapter

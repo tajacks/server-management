@@ -7,12 +7,12 @@
   <p class="author">by <a href="{{ site.author.url }}" target="_blank" rel="noopener noreferrer">{{ site.author.name }}</a></p>
 
   <section class="toc">
-    {% set chapterIndexes = collections.chapters | chapterIndexesOnly %}
-    {% for chapterPage in chapterIndexes %}
+    {% set uniqueChapters = collections.chapters | getUniqueChapters %}
+    {% for chapter in uniqueChapters %}
       <div class="chapter-block">
-        <h2>Chapter {{ chapterPage.data.chapterNumber }}: {{ chapterPage.data.title }}</h2>
+        <h2>Chapter {{ chapter.chapterNumber }}: {{ chapter.title }}</h2>
         <div class="sections-grid">
-          {% set sections = collections.chapters | getChapterSections(chapterPage.data.chapterNumber) %}
+          {% set sections = collections.chapters | getChapterSections(chapter.chapterNumber) %}
           {% for section in sections %}
             <a href="{{ section.url }}">
               <div>
