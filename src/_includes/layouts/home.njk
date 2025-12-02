@@ -1,0 +1,31 @@
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+<main class="home-container">
+  <h1>{{ site.title }}</h1>
+  <p class="subtitle">{{ site.subtitle }}</p>
+  <p class="author">by <a href="{{ site.author.url }}" target="_blank" rel="noopener noreferrer">{{ site.author.name }}</a></p>
+
+  <section class="toc">
+    {% set chapterIndexes = collections.chapters | chapterIndexesOnly %}
+    {% for chapterPage in chapterIndexes %}
+      <div class="chapter-block">
+        <h2>Chapter {{ chapterPage.data.chapterNumber }}: {{ chapterPage.data.title }}</h2>
+        <div class="sections-grid">
+          {% set sections = collections.chapters | getChapterSections(chapterPage.data.chapterNumber) %}
+          {% for section in sections %}
+            <a href="{{ section.url }}">
+              <div>
+                <h3>{{ section.data.title }}</h3>
+                <p>{{ section.data.description }}</p>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </section>
+
+  {% include "partials/footer.njk" %}
+</main>
+{% endblock %}
