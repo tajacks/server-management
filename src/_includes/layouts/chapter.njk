@@ -1,0 +1,25 @@
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+<main class="chapter-content">
+  <div class="chapter-header">
+    <span>Chapter {{ chapterNumber }}</span>
+    {% if sectionNumber %}<span>Section {{ sectionNumber }}</span>{% endif %}
+  </div>
+
+  <article>
+    <h1>{{ title }}</h1>
+    {{ content | safe }}
+  </article>
+
+  <nav class="chapter-nav">
+    <a href="/" class="home-link">← Table of Contents</a>
+    {% if previousPage %}
+      <a href="{{ previousPage.url }}">← {{ previousPage.data.title }}</a>
+    {% endif %}
+    {% if nextPage %}
+      <a href="{{ nextPage.url }}">{{ nextPage.data.title }} →</a>
+    {% endif %}
+  </nav>
+</main>
+{% endblock %}

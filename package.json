@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tajacks/server-management.git"
+    "url": "git+https://github.com/tajacks/running-servers.git"
   },
   "author": "Thomas Jack",
   "license": "CC-BY-NC-SA-4.0",
   "bugs": {
-    "url": "https://github.com/tajacks/server-management/issues"
+    "url": "https://github.com/tajacks/running-servers/issues"
   },
-  "homepage": "https://github.com/tajacks/server-management#readme",
+  "homepage": "https://github.com/tajacks/running-servers#readme",
   "dependencies": {
     "@11ty/eleventy": "3.1.2",
     "@11ty/eleventy-plugin-syntaxhighlight": "5.0.2",
