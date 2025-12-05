@@ -1,0 +1,32 @@
+{
+  "name": "running-servers",
+  "version": "1.0.0",
+  "description": "A comprehensive guide to setting up and running hobby servers",
+  "type": "module",
+  "scripts": {
+    "clean": "rm -rf _site",
+    "prebuild": "npm run clean",
+    "build:css": "npx @tailwindcss/cli -i ./src/css/input.css -o ./_site/css/style.css --minify",
+    "watch:css": "npx @tailwindcss/cli -i ./src/css/input.css -o ./_site/css/style.css --watch",
+    "build:11ty": "npx @11ty/eleventy",
+    "watch:11ty": "npx @11ty/eleventy --serve",
+    "start": "npm run watch:css & npm run watch:11ty",
+    "build": "npm run build:11ty && npm run build:css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tajacks/running-servers.git"
+  },
+  "author": "Thomas Jack",
+  "license": "CC-BY-NC-SA-4.0",
+  "bugs": {
+    "url": "https://github.com/tajacks/running-servers/issues"
+  },
+  "homepage": "https://github.com/tajacks/running-servers#readme",
+  "dependencies": {
+    "@11ty/eleventy": "3.1.2",
+    "@11ty/eleventy-plugin-syntaxhighlight": "5.0.2",
+    "@tailwindcss/cli": "4.1.17",
+    "tailwindcss": "4.1.17"
+  }
+}

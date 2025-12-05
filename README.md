@@ -139,7 +139,8 @@ apt install -y \
   fish \
   tree \
   net-tools \
-  sysstat
+  sysstat \
+  rsync
 ```
 
 ### Create Admin User
